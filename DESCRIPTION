@@ -1,7 +1,7 @@
 Package: terapadog
 Type: Package
 Title: Translational Efficiency Regulation Analysis using the PADOG Method
-Version: 1.3.0
+Version: 1.4.0
 Authors@R: person("Gionmattia", "Carancini",
             email = "gionmattia@gmail.com",
             role = c("cre", "aut"),

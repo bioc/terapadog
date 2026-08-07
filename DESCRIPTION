@@ -1,7 +1,7 @@
 Package: terapadog
 Type: Package
 Title: Translational Efficiency Regulation Analysis using the PADOG Method
-Version: 1.5.0
+Version: 1.5.1
 Authors@R: person("Gionmattia", "Carancini",
             email = "gionmattia@gmail.com",
             role = c("cre", "aut"),
@@ -16,12 +16,12 @@ Description: This package performs a Gene Set Analysis with the approach adopted
 License: GPL-2
 Encoding: UTF-8
 LazyData: FALSE
-Imports: DESeq2, KEGGREST, stats, utils, dplyr, plotly, htmlwidgets, biomaRt, methods
+Imports: DESeq2, KEGGREST, stats, utils, dplyr, plotly, htmlwidgets, biomaRt, methods, tidyr, pathview
 Suggests: apeglm, BiocStyle, knitr, rmarkdown, testthat
-Collate: preprocessing_helpers.R id_converter.R prepareTerapadogData.R terapadogBricks.R terapadog.R get_FCs.R assign_Regmode.R plotDTA.R 
+Collate: preprocessing_helpers.R id_converter.R prepareTerapadogData.R terapadogBricks.R terapadog.R get_FCs.R assign_Regmode.R plotDTA.R pathway_results_viz.R
 biocViews: RiboSeq, Transcriptomics, GeneSetEnrichment, GeneRegulation, 
     Reactome, Software
-RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 URL: https://github.com/Gionmattia/terapadog
 BugReports: https://github.com/Gionmattia/terapadog/issues
+Config/roxygen2/version: 8.1.0

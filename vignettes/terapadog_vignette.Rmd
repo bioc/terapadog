@@ -505,6 +505,52 @@ use *tempdir()* to see which one.
 plot_FCs <- plotDTA(fc_results)
 ```
 
+## **get_gene_from_kegg_pathway()**
+
+This function extracts, for a given pathway, all the relative genes results from 
+the output of the get_FCs() function.
+It allows the user to see how individual genes within a pathway of interest are 
+changing across their ribosome-derived counts, RNA-derived counts, and the TE.
+
+- ***fc_results***: *The results of the get_FCs() function, a dataframe.*
+- ***pathway_id***: *The kegg ID for the pathway of interest, as reported in the*
+*results of the terapadog() function (eg. 01000).*
+- ***organism_prefix***: *The three-letter acronym for the organism of interest.*
+*Currently, only human ("hsa") is supported.*
+- ***ensembl_dataset***: *Defines the ensembl dataset to use. Default is *
+*"hsapiens_gene_ensembl".*
+
+```{r get-kegg-genes-example, echo = TRUE, eval=FALSE}
+# Due to KEGG guidelines, this code cannot be run in this vignette.
+# Execute the function
+pathway_res <- get_gene_from_kegg_pathway(fc_results, "01000")
+```
+
+## **plot_pathway_changes()**
+
+Given a pathway of interest, this function extracts from the fc_results the 
+relative genes. It then maps the fold changes (RNA, RIBO, and TE) on said pathway 
+and stores the three pictures as .png files in the working directory.
+Only significant adjusted p-values are plotted, though users can control the 
+threshold with the argument "alpha-threshold".
+
+*NB.1* This function cannot be executed in documentations or vignette as it 
+retrieves information from the KEGG database, which cannot be redistributed.
+
+- ***fc_results***: *The results of the get_FCs() function, a dataframe.*
+- ***pathway_id***: *The kegg ID for the pathway of interest, as reported in the*
+*results of the terapadog() function (eg. 01000).*
+- ***organism_prefix***: *The three-letter acronym for the organism of interest.*
+*Currently, only human ("hsa") is supported.*
+- ***alpha_threshold***: *Defines the threshold for alpha. Values above are*
+*considered non-significant.*
+
+```{r plot-pathway-example, echo = TRUE, eval=FALSE}
+# Execute the function
+plots <- plot_pathway_changes(fc_results, "01000")
+```
+
+
 # References
 
 **Discalimer:**

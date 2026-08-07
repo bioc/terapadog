@@ -89,7 +89,16 @@ test_that("terapadog runs without errors", {
   exp_de <- prepared_data$exp_de
   # converts ids
   esetm <- id_converter(esetm, "ensembl_gene_id")
+  # Assemble a mock list of pathways - to reduce access to KEGG servers and network when testing.
+  genes <- rownames(esetm)
+  mock_gslist <- list(
+    "00001" = genes[1000:2250], # Big-sized fake-pathway
+    "00002" = genes[3000:3200], # Middle-sized fake-pathway
+    "00003" = genes[4000:4047], # Small-sized fake-pathway
+    "00004" = genes[7000:7025] # Small-sized fake-pathway
+  )
+  mock_gs.names <- c("00001" = "Mock Set 1", "00002" = "Mock Set 2", "00003" = "Mock Set 3", "00004" = "Mock Set 4")
   # runs terapadog with reduced genes, iterations, and thresholds
   # To evade bioconductor's timeout issues.
-  expect_silent(terapadog(esetm = esetm, exp_de = exp_de, NI = 7, Nmin = 2, verbose = FALSE))
+  expect_silent(terapadog(esetm = esetm, exp_de = exp_de, gslist = mock_gslist, gs.names = mock_gs.names, NI = 7, Nmin = 2, verbose = FALSE))
 })

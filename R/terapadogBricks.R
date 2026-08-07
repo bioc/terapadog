@@ -394,7 +394,7 @@ gsScoreFun <- function(G, block, ite, exp_de, esetm, paired, grouped_indexes,
   names(de) <- rownames(res.TE)
 
   # The scaling happens. Matrix is generated with original padj (de) and scaled one (de*gf)
-  degf <- scale(cbind(de, de * gf[names(de)]))
+  degf <- scale(cbind(de, de / gf[names(de)]))   # degf <- scale(cbind(de, de * gf[names(de)]))
   rownames(degf) <- names(de)
   # Drops genes that are not in deINgs
   degf <- degf[deINgs, , drop = FALSE]

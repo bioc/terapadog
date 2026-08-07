@@ -1,5 +1,4 @@
 library(testthat)
-library(KEGGREST)
 library(terapadog) # Adjust this path
 
 ##### Tests for prepareGeneSets() #####

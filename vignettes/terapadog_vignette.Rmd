@@ -514,7 +514,7 @@ changing across their ribosome-derived counts, RNA-derived counts, and the TE.
 
 - ***fc_results***: *The results of the get_FCs() function, a dataframe.*
 - ***pathway_id***: *The kegg ID for the pathway of interest, as reported in the*
-*results of the terapadog() function (eg. 01000).*
+*results of the terapadog() function (eg. 04350).*
 - ***organism_prefix***: *The three-letter acronym for the organism of interest.*
 *Currently, only human ("hsa") is supported.*
 - ***ensembl_dataset***: *Defines the ensembl dataset to use. Default is *
@@ -523,7 +523,7 @@ changing across their ribosome-derived counts, RNA-derived counts, and the TE.
 ```{r get-kegg-genes-example, echo = TRUE, eval=FALSE}
 # Due to KEGG guidelines, this code cannot be run in this vignette.
 # Execute the function
-pathway_res <- get_gene_from_kegg_pathway(fc_results, "01000")
+pathway_res <- get_gene_from_kegg_pathway(fc_results, "04350")
 ```
 
 ## **plot_pathway_changes()**
@@ -539,7 +539,7 @@ retrieves information from the KEGG database, which cannot be redistributed.
 
 - ***fc_results***: *The results of the get_FCs() function, a dataframe.*
 - ***pathway_id***: *The kegg ID for the pathway of interest, as reported in the*
-*results of the terapadog() function (eg. 01000).*
+*results of the terapadog() function (eg. 04350).*
 - ***organism_prefix***: *The three-letter acronym for the organism of interest.*
 *Currently, only human ("hsa") is supported.*
 - ***alpha_threshold***: *Defines the threshold for alpha. Values above are*
@@ -547,7 +547,7 @@ retrieves information from the KEGG database, which cannot be redistributed.
 
 ```{r plot-pathway-example, echo = TRUE, eval=FALSE}
 # Execute the function
-plots <- plot_pathway_changes(fc_results, "01000")
+plots <- plot_pathway_changes(fc_results, "04350")
 ```
 
 
@@ -578,6 +578,8 @@ Chothani S, Adami E, Ouyang JF, Viswanathan S, Hubner N, Cook SA, Schafer S, Rac
 
 [<https://pubmed.ncbi.nlm.nih.gov/31763789/>]
 
+*Apeglm:*
+
 In addition, DeltaTE makes use of the  lfcShrink function from the apeglm package:
 
 Zhu A, Ibrahim JG, Love MI. Heavy-tailed prior distributions for sequence 
@@ -586,12 +588,24 @@ count data: removing the noise and preserving large differences.vBioinformatics.
 
 [<https://doi.org/10.1093/bioinformatics/bty895>]
 
+*Pathview:*
+
+For the single-pathway visualization of the results, terapadog imports pathview, 
+which we reference below.
+
+Luo, Weijun, Brouwer, Cory. Pathview: an R/Bioconductor package for pathway-based data integration and visualization. Bioinformatics, 29(14), 1830-1831 (2013).
+
+[<https://doi:10.1093/bioinformatics/btt285>]
+
+*ReactomeGSA:*
+
 Finally, I reference the ReactomeGSA, since this tool has been developed with the 
-final aim to have it integrated with it once published, as peart of a new analyser.
+ultimate goal to have it integrated with it, as part of a new analyser.
 
 Griss J, Viteri G, Sidiropoulos K, Nguyen V, Fabregat A, Hermjakob H, ReactomeGSA - Efficient Multi-Omics Comparative Pathway Analysis, Molecular & Cellular Proteomics (2020).
 
 [<https://doi.org/10.1074/mcp.TIR120.002155>]
+
 
 # Ackwoledgements
 

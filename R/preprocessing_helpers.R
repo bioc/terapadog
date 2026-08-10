@@ -130,7 +130,8 @@ check_integer_values <- function(df) {
   {all(x == as.integer(x), na.rm = TRUE)})
   if (!all(are_columns_integer)) {
     row_names <- rownames(df)
-    df <- data.frame(lapply(df, function(x) as.integer(round(x))))
+    df <- data.frame(lapply(df, function(x) as.integer(round(x))), 
+                     check.names = FALSE)
     rownames(df) <- row_names
   }
   return(df)

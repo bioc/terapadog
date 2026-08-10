@@ -381,7 +381,10 @@ gsScoreFun <- function(G, block, ite, exp_de, esetm, paired, grouped_indexes,
   ddsMat <- suppressMessages(DESeq2::DESeq(ddsMat))
 
   # Extract specific comparison of interest
-  res.TE <- DESeq2::results(ddsMat, name = "Groupd.SeqTypeRIBO")
+  res.TE <- DESeq2::results(ddsMat, name = "Groupd.SeqTypeRIBO",
+                            cooksCutoff = FALSE,  # New
+                            independentFiltering = FALSE # New
+                            )
 
   # Checks the result of the Differential Translational Analysis contains padjs
   if (!"padj" %in% colnames(res.TE)) {

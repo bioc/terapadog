@@ -415,7 +415,7 @@ calculated via permutation testing.
 # Load the example of terapadog results from the library
 example <- system.file("extdata", "terapadog_res_example.csv", 
                                     package = "terapadog")
-res_example <- read.table(example)
+res_example <- read.table(example, sep = ",", header = TRUE)
 print(head(res_example))
 ```
 

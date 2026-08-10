@@ -49,7 +49,7 @@ assign_Regmode <- function(res_df) {
 
 
   #Applying the "Forwarded" RegMode (genes regulated by mRNA abundance, with no significant changes in Translational Efficiency)
-  forwarded <- res_df$padj > 0.05 & res_df$RIBO_padj < 0.05 & res_df$RNA_padj < 0.05
+  forwarded <- res_df$padj >= 0.05 & res_df$RIBO_padj < 0.05 & res_df$RNA_padj < 0.05
   res_df$RegMode[forwarded] <- "Forwarded"
   # Checks directionality of FC and assigns a more "explicit" RegMode value
   up_forwarded <- res_df$RegMode == "Forwarded" & res_df$RNA_FC > 0
@@ -59,7 +59,7 @@ assign_Regmode <- function(res_df) {
 
 
   # Applying "Exclusive" RegMode (genes regulated by translation efficiency, with no change in mRNA abundance.
-  exclusive <- res_df$padj < 0.05 & res_df$RIBO_padj < 0.05 & res_df$RNA_padj > 0.05
+  exclusive <- res_df$padj < 0.05 & res_df$RIBO_padj < 0.05 & res_df$RNA_padj >= 0.05
   res_df$RegMode[exclusive] <- "Exclusive"
   # Checks directionality of FC and assigns a more "explicit" RegMode value
   up_exclusive <- res_df$RegMode == "Exclusive" & res_df$log2FoldChange > 0
@@ -74,7 +74,7 @@ assign_Regmode <- function(res_df) {
     res_df$log2FoldChange * res_df$RNA_FC < 0
   res_df$RegMode[buffered] <- "Buffered"
   # Buffered (special case, when the effect of TE and RNA cancels out the change in RIBO)
-  buffered_special <- res_df$padj < 0.05 & res_df$RIBO_padj > 0.05 & res_df$RNA_padj < 0.05
+  buffered_special <- res_df$padj < 0.05 & res_df$RIBO_padj >= 0.05 & res_df$RNA_padj < 0.05
   res_df$RegMode[buffered_special] <- "Buffered"
   # Checks directionality of FC and assigns a more "explicit" RegMode value
   buffered_mRNA_down <- res_df$RegMode == "Buffered" & res_df$RNA_FC < 0
@@ -96,7 +96,7 @@ assign_Regmode <- function(res_df) {
 
 
   # No change case
-  no_change <- res_df$padj > 0.05 & res_df$RIBO_padj > 0.05 & res_df$RNA_padj > 0.05
+  no_change <- res_df$padj >= 0.05 & res_df$RIBO_padj >= 0.05 & res_df$RNA_padj >= 0.05
   res_df$RegMode[no_change] <- "No Change"
   res_df$RegModeExplicit[no_change] <- "No significant change detected in transcription or translation"
 
@@ -109,9 +109,9 @@ assign_Regmode <- function(res_df) {
 
 
   # Combination of padjs not categorised by DeltaTE (Defined as "Undetermined" by Chotani in paper 2019)
-  undetermined <- (res_df$padj > 0.05 & res_df$RIBO_padj > 0.05 & res_df$RNA_padj < 0.05)  |
-    (res_df$padj > 0.05 & res_df$RIBO_padj < 0.05 & res_df$RNA_padj > 0.05) |
-    (res_df$padj < 0.05 & res_df$RIBO_padj > 0.05 & res_df$RNA_padj > 0.05)
+  undetermined <- (res_df$padj >= 0.05 & res_df$RIBO_padj >= 0.05 & res_df$RNA_padj < 0.05)  |
+    (res_df$padj >= 0.05 & res_df$RIBO_padj < 0.05 & res_df$RNA_padj >= 0.05) |
+    (res_df$padj < 0.05 & res_df$RIBO_padj >= 0.05 & res_df$RNA_padj >= 0.05)
   res_df$RegMode[undetermined] <- "Undetermined"
   res_df$RegModeExplicit[undetermined] <- "Cannot be assigned to any Regulatory Mode"
 

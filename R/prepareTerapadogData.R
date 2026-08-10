@@ -117,11 +117,10 @@ prepareTerapadogData <- function (path_to_RNA_counts, path_to_RIBO_counts,
   }
 
   # Reformat baseline and target to "c" and "d"
-  baseline <- ifelse(grepl(analysis.group.1, exp_de$Condition), 1,
-                ifelse(grepl(analysis.group.2, exp_de$Condition), 0, NA))
-
-  target <- ifelse(grepl(analysis.group.2, exp_de$Condition), 1,
-                ifelse(grepl(analysis.group.1, exp_de$Condition), 0, NA))
+  baseline <- ifelse(exp_de$Condition == analysis.group.1, 1, # was grepl
+                     ifelse(exp_de$Condition == analysis.group.2, 0, NA))
+  target <- ifelse(exp_de$Condition == analysis.group.2, 1, # was grepl
+                   ifelse(exp_de$Condition == analysis.group.1,0, NA))
 
   design <- data.frame(baseline, target)
 

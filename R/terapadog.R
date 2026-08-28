@@ -125,8 +125,8 @@ terapadog <- function (esetm = NULL, exp_de = NULL, paired = FALSE,
   }
   PSabsT <- apply(MSabsT, 1, mff)
   PSTop <- apply(MSTop, 1, mff)
-  PSabsT[PSabsT == 0] <- 1/NI/100
-  PSTop[PSTop == 0] <- 1/NI/100
+  PSabsT[PSabsT == 0] <- 1/(NI +1) #sets lowest p-value from 0 to 1/(NI+1) 
+  PSTop[PSTop == 0] <- 1/(NI +1)
 
   # Compiles the final result as a dataframe
   if (!is.null(gs.names)) {

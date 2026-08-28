@@ -2,7 +2,7 @@
 % Please edit documentation in R/terapadog.R
 \name{terapadog}
 \alias{terapadog}
-\title{Performs the main Gene Set Enrichement Analysis, by applying a modified
+\title{Performs the main Gene Set Enrichment Analysis, by applying a modified
 version of the PADOG algorithm to genes undergoing changes in TE.}
 \usage{
 terapadog(
@@ -14,7 +14,8 @@ terapadog(
   gs.names = NULL,
   NI = 1000,
   Nmin = 3,
-  verbose = TRUE
+  verbose = TRUE,
+  ranks = FALSE
 )
 }
 \arguments{
@@ -47,11 +48,14 @@ significance p-values.}
 \item{Nmin}{The minimum size of gene sets to be included in the analysis.}
 
 \item{verbose}{Logical. If true, shows number of iterations done.}
+
+\item{ranks}{Logical. If true, returns also rank of each gene set.}
 }
 \value{
-A dataframe with the PADOG score for each pathway in exam.
+A dataframe with the PADOG score for each pathway in exam, alongside 
+rank value - how they rank in enrichment across all gene sets present.
 }
 \description{
-Performs the main Gene Set Enrichement Analysis, by applying a modified
+Performs the main Gene Set Enrichment Analysis, by applying a modified
 version of the PADOG algorithm to genes undergoing changes in TE.
 }

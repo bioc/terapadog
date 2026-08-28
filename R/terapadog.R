@@ -1,6 +1,6 @@
 # R/terapadog.R
 
-#' Performs the main Gene Set Enrichement Analysis, by applying a modified
+#' Performs the main Gene Set Enrichment Analysis, by applying a modified
 #' version of the PADOG algorithm to genes undergoing changes in TE.
 #' @importFrom KEGGREST keggLink keggList
 #' @importFrom DESeq2 DESeqDataSetFromMatrix DESeq results
@@ -28,12 +28,15 @@
 #' significance p-values.
 #' @param Nmin The minimum size of gene sets to be included in the analysis.
 #' @param verbose Logical. If true, shows number of iterations done.
-#' @return A dataframe with the PADOG score for each pathway in exam.
+#' @param ranks Logical. If true, returns also rank of each gene set.
+#' @return A dataframe with the PADOG score for each pathway in exam, alongside 
+#' rank value - how they rank in enrichment across all gene sets present.
 #' @export
 #'
 terapadog <- function (esetm = NULL, exp_de = NULL, paired = FALSE,
                        gslist = "KEGGRESTpathway", organism = "hsa" ,
-                       gs.names = NULL, NI = 1000, Nmin = 3, verbose = TRUE) {
+                       gs.names = NULL, NI = 1000, Nmin = 3, verbose = TRUE,
+                       ranks = FALSE) {
 
   ####### UNIT TESTING - checks on inputs #####
   if (!is.matrix(esetm)) stop("Error: esetm must be a matrix")
@@ -111,7 +114,7 @@ terapadog <- function (esetm = NULL, exp_de = NULL, paired = FALSE,
   meanAbsT0 <- MSabsT[, 1]
   padog0 <- MSTop[, 1]
   MSabsT <- scale(MSabsT)
-  MSTop <- scale(MSTop)
+  MSTop <- scale(MSTop) # Here second standardisation
 
   # mff is what checks the real score against the iterative ones.
   # Originally, PADOG compares t-scores (the bigger, the more significant).
@@ -135,9 +138,17 @@ terapadog <- function (esetm = NULL, exp_de = NULL, paired = FALSE,
   SIZE <- unlist(lapply(gslist, function(x) {
     length(intersect(rownames(esetm), x))
   }))
+  
   res <- data.frame(Name = myn, ID = names(gslist), Size = SIZE,
                     meanAbsT0, padog0, PmeanAbsT = PSabsT, Ppadog = PSTop,
                     stringsAsFactors = FALSE)
+  
+  if (ranks == TRUE) {
+    res$S0star <- MSTop[, 1]
+    res$rank <- rank(res$S0star, ties.method = "average")
+    res$S0star <- NULL
+  }
+
   ord <- order(res$Ppadog, -res$padog0)
   res <- res[ord, ]
   return(res)

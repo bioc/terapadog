@@ -408,8 +408,18 @@ Higher values indicate the gene set/pathway to be more significantly associated
 with the condition in exam in the experiment.
 - *PmeanAbsT*. This is the p-value corresponding to the meanAbsT0 statistic, 
 calculated through permutation testing (before applying the weighting scheme).
+- *Rank*. This corresponds to the Value of S80 in the original PADOG paper. It's
+the ranking (based on enrichment) for a pathway when compared to all others.
 - *Ppadog*. This is the p-value corresponding to the PADOG statistic (padog0), 
 calculated via permutation testing.
+
+**NB.** RESULTS INTERPRETATION ADVICE
+A current limit of PADOG is that the PPADOG has a floor level determined by the 
+number of iterations (which is in turn determined by how many samples you have).
+RNA-seq experiments (or Ribo-Seq as well) tends to not have so many replicates.
+As such, PPADOG might be coarse as a p-value. 
+*As an heuristic for result interpretation: start by looking at pathways that* 
+*have significant PPADOG AND highest (from 1 ascending) rank.*
 
 ```{r}
 # Load the example of terapadog results from the library
